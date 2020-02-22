@@ -1,7 +1,7 @@
 # Books REST API
 
 This is a REST API built with the SlimPHP framework and uses MySQL for storage.
-The frontend uses Vanialla Javascript
+The frontend uses Vanilla Javascript
 
 ### Version
 1.0.0
@@ -18,7 +18,11 @@ Edit db/config params under src
 
 Install SlimPHP and dependencies
 
-### API Endpints
+```sh
+$ composer
+```
+
+### API Endpoints
 ```sh
 $ GET /api/books
 $ GET /api/book/{id}
