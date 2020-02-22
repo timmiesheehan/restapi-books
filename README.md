@@ -14,6 +14,15 @@ URL: https://timmys.dev/books
 
 Create database
 
+``` sh
+CREATE TABLE books(
+  id int(11) NOT NULL,
+  title varchar(255) NOT NULL,
+  author varchar(255) NOT NULL,
+  rating int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+```
+
 Edit db/config params under src
 
 Install SlimPHP and dependencies
