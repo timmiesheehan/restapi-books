@@ -41,7 +41,7 @@ $app->get('/api/books', function(Request $request, Response $response){
         return $response->write(json_encode($books));
 
     } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
+        echo '{"error": {"text": '.$e->getMessage().'}}';
     }
 });
 
