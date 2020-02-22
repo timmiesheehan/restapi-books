@@ -1,7 +1,7 @@
 # Books REST API
 
-This is a REST api built with the SlimPHP framework and uses MySQL for storage.
-The Frontend uses PHP and Javasript
+This is a REST API built with the SlimPHP framework and uses MySQL for storage.
+The Frontend uses Javasript
 
 ### Version
 1.0.0
@@ -14,9 +14,9 @@ URL:
 
 ### Installation
 
-Create database or import from _sql/slimapp.sql
+Create database
 
-Edit db/config params
+Edit db/config params under src
 
 Install SlimPHP and dependencies
 
@@ -30,4 +30,5 @@ $ GET /api/book/{id}
 $ POST /api/book/add
 $ PUT /api/book/update/{id}
 $ DELETE /api/book/delete/{id}
+$ GET /api/books/reset
 ```

@@ -61,7 +61,7 @@ $app->get('/api/book/{id}', function(Request $request, Response $response){
         $db = null;
         return $response->write(json_encode($book));
     } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
+        echo '{"error": {"text": '.$e->getMessage().'}}';
     }
 });
 
@@ -69,11 +69,11 @@ $app->get('/api/book/{id}', function(Request $request, Response $response){
 $app->post('/api/book/add', function(Request $request, Response $response){
     $title = $request->getParam('title');
     $author = $request->getParam('author');
-    $comments = $request->getParam('comments');
+    $rating = $request->getParam('rating');
  
 
-    $sql = "INSERT INTO books (title,author,comments) VALUES
-    (:title,:author,:comments)";
+    $sql = "INSERT INTO books (title,author,rating) VALUES
+    (:title,:author,:rating)";
 
     try{
         // Get DB Object
@@ -85,27 +85,29 @@ $app->post('/api/book/add', function(Request $request, Response $response){
 
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':author', $author);
-        $stmt->bindParam(':comments', $comments);
+        $stmt->bindParam(':rating', $rating);
 
         $stmt->execute();
+        $last_id = $db->lastInsertId();
 
-        echo '{"notice": {"text": "Book Added"}';
+        echo '{"notice": {"text": "Book Added", "id": '.$last_id.' }}';
 
     } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
+        echo '{"error": {"text": '.$e->getMessage().'}}';
     }
 });
 
 // Update Book
 $app->put('/api/book/update/{id}', function(Request $request, Response $response){
+    $id = $request->getParam('id');
     $title = $request->getParam('title');
     $author = $request->getParam('author');
-    $comments = $request->getParam('comments');
+    $rating = $request->getParam('rating');
 
-    $sql = "UPDATE customers SET
+    $sql = "UPDATE books SET
 				title 	= :title,
 				author 	= :author,
-                comments		= :comments
+                rating	= :rating
 			WHERE id = $id";
 
     try{
@@ -118,14 +120,14 @@ $app->put('/api/book/update/{id}', function(Request $request, Response $response
 
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':author', $author);
-        $stmt->bindParam(':comments', $comments);
+        $stmt->bindParam(':rating', $rating);
 
         $stmt->execute();
 
-        echo '{"notice": {"text": "Book Updated"}';
+        echo '{"notice": {"text": "Book Updated"}}';
 
     } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
+        echo '{"error": {"text": '.$e->getMessage().'}}';
     }
 });
 
@@ -144,8 +146,34 @@ $app->delete('/api/book/delete/{id}', function(Request $request, Response $respo
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $db = null;
-        echo '{"notice": {"text": "Book Deleted"}';
+        echo '{"notice": {"text": "Book Deleted"}}';
     } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
+        echo '{"error": {"text": '.$e->getMessage().'}}';
+    }
+});
+
+// Restes Books
+$app->get('/api/books/reset', function(Request $request, Response $response){
+
+ 
+
+    $sql = "DELETE FROM books; INSERT INTO books(title, author, rating) VALUES
+    ('The Outsider', 'Stephen King', 8),
+    ('Fight Club', 'Chuck Palahniuk', 9),
+    ('The Martian', 'Andy Weir', 7);";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+
+        echo '{"notice": {"text": "Books Reset"}}';
+
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}}';
     }
 });
