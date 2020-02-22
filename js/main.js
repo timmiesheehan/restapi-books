@@ -109,7 +109,7 @@ function updateBook(form) {
  * delete a book from the database
  */
 function deleteBook(li, id) {
-    const really = confirm("Are you sure you want to delete this book");
+    const really = confirm("Are you sure you want to delete this book?");
     if (really == true) {
        li.remove();
  
