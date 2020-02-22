@@ -1,5 +1,5 @@
 <?php
-//PHP version of frontend 
+//PHP version of frontend stared but decided to do in JS
 
 function callAPI($method, $url, $data){
     $curl = curl_init();
