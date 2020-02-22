@@ -68,6 +68,9 @@ function editBook(li) {
     
 }
 
+/**
+ * update the data of an existing book in the database by calling api
+ */
 function updateBook(form) {
 
         const editForm = form;
