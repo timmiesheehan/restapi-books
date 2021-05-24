@@ -1,6 +1,6 @@
 # Books REST API
 
-This is a REST API built with the SlimPHP framework and uses MySQL for storage.
+This is a REST API built with PHP using the SlimPHP framework and uses MySQL for storage.
 The frontend uses Vanilla Javascript
 
 ### Version
